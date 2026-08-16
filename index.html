@@ -25,7 +25,7 @@ body { margin: 0; background-color: #1e1b4b; font-family: 'Noto Serif KR', serif
 .track-item { background: rgba(63, 63, 70, 0.9); border: 2px solid #78716c; border-radius: 8px; padding: 12px; cursor: pointer; display: flex; flex-direction: column; transition: all 0.2s;}
 .track-item:hover { border-color: #fde047; }
 .track-item.selected { border: 3px solid #fde047; background: rgba(253, 224, 71, 0.2); transform: scale(1.02); }
-.track-title { font-size: 1.1rem; font-weight: 900; color: #fef08a; text-align: center;}
+.track-title { font-size: 1.2rem; font-weight: 900; color: #fef08a; text-align: center;}
 
 .setting-group { background: rgba(0, 0, 0, 0.4); border: 2px solid #57534e; border-radius: 10px; padding: 12px; margin-bottom: 10px; width: 100%; max-width: 400px; text-align: left; }
 .setting-title { font-size: 0.9rem; font-weight: bold; margin-bottom: 8px; color: #d6d3d1; }
@@ -151,7 +151,7 @@ touch-action: manipulation;
 <div class="text-sm text-emerald-400 font-bold mb-3">📅 요한계시록 주요 암송 구절</div>
 
 <div class="setting-group" style="padding:0; border:none; background:transparent;">
-<div class="setting-title text-yellow-400" style="margin-left: 5px;">📖 장 선택 (클릭)</div>
+<div class="setting-title text-yellow-400" style="margin-left: 5px;">📖 구절 선택 (클릭)</div>
 <div id="track-list-container" class="track-list"></div>
 </div>
 
@@ -296,12 +296,15 @@ let trackDefs = [];
 let selectedTrackDef = null;
 
 function initChapterList() {
-  trackDefs = [];
-  // 데이터에 있는 장들을 자동으로 불러와 목록 생성
-  const chapters = Object.keys(bibleData).map(Number).sort((a, b) => a - b);
-  chapters.forEach(ch => {
-    trackDefs.push({ id: 'ch' + ch, ch: ch, title: `요한계시록 ${ch}장 탑` });
-  });
+  // 요청하신 5개의 구절만 목록에 표시되도록 고정
+  trackDefs = [
+    { id: 'ch3', ch: 3, title: '계 3:12~13' },
+    { id: 'ch12', ch: 12, title: '계 12:10~11' },
+    { id: 'ch15', ch: 15, title: '계 15:4~5' },
+    { id: 'ch18', ch: 18, title: '계 18:7~8' },
+    { id: 'ch22', ch: 22, title: '계 22:15~16' }
+  ];
+  
   renderTrackList();
   if (trackDefs.length > 0) selectChapter(trackDefs[0].ch);
 }
